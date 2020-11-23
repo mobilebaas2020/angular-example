@@ -1,0 +1,60 @@
+<div class="container" style="margin-left: 1%;">
+    <mat-form-field class="example-full-width">
+        <mat-label>Meeting Name</mat-label>
+        <input matInput placeholder=""  [(ngModel)]="meetingNameFind">
+    </mat-form-field>&nbsp;
+    <mat-form-field>
+      <mat-label>Meeting Date</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="meetingDateFind">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>&nbsp;
+    <button mat-raised-button color="primary"  (click)="findByParameter()">Filter</button>&nbsp;
+</div>
+
+<table mat-table [dataSource]="meetings" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="meetingName">
+      <th mat-header-cell *matHeaderCellDef> Meeting Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.meetingName}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="meetingSubject">
+      <th mat-header-cell *matHeaderCellDef> Meeting Subject </th>
+      <td mat-cell *matCellDef="let element"> {{element.meetingSubject}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="meetingResponsible">
+      <th mat-header-cell *matHeaderCellDef> Meeting Responsible </th>
+      <td mat-cell *matCellDef="let element"> {{element.meetingResponsible}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="meetingDate">
+      <th mat-header-cell *matHeaderCellDef> Meeting Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.meetingDate | localDateTime}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="meetingTime">
+      <th mat-header-cell *matHeaderCellDef> Meeting Time </th>
+      <td mat-cell *matCellDef="let element"> {{element.meetingTime}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>
+            Actions
+        </th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-raised-button color="primary"  (click)="edit(element.id)">Edit</button>&nbsp;
+            <button mat-mini-fab color="warn" (click)="confirmDelete(element.id)" aria-label="Delete">
+              <mat-icon>delete</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator [length]="length"
+              [pageSize]="pageSize"
+              (page)="getServerData($event)">
+</mat-paginator>

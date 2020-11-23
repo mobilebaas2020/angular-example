@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>New Meeting</h1>
+<form class="example-form" [formGroup]="meetingForm">
+  <input type="hidden" formControlName="id" name="id">
+  <mat-form-field class="example-full-width">
+      <mat-label>Meeting Name</mat-label>
+      <input matInput placeholder="" formControlName="meetingName" name="meetingName">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+      <mat-label>Meeting Subject</mat-label>
+      <input matInput placeholder="" formControlName="meetingSubject" name="meetingSubject">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Meeting Responsible</mat-label>
+    <input matInput placeholder="" formControlName="meetingResponsible" name="meetingResponsible">
+  </mat-form-field>
+
+  <div fxLayout="row wrap">
+    <div fxFlex="50" fxFill fxLayoutAlign="start center">
+        <mat-form-field>
+            <mat-label>Meeting Date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="meetingDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div fxFlex="50" fxFill fxLayoutAlign="start center">
+      <mat-form-field>
+          <mat-label>Meeting Time</mat-label>
+          <input matInput type="time" placeholder="" formControlName="meetingTime" #time/>
+      </mat-form-field>
+    </div>
+  </div>  
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="cancel()">Cancel</button>
+    <button mat-raised-button color="primary" [disabled]="!meetingForm.valid" (click)="save()">Save</button>
+  </div>
+</form>  
